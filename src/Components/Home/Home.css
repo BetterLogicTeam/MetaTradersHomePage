@@ -1,0 +1,28 @@
+.Home{
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+height:100vh;
+}
+.movebtn{
+    background: linear-gradient(79deg, rgba(194,223,9,1) 0%, rgba(58,155,0,1) 100%);
+    padding: 2px;
+    width: fit-content;
+    height: fit-content;
+}
+.cards{    
+    overflow-x:  scroll;
+}
+.cards::-webkit-scrollbar{
+    width: 0;
+}
+/* .abouttext{
+    background-image:url('../../../public//images/camo-back.jpg');
+} */
+.abouttext p{
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color:#C9C9C9;
+    margin: 0;
+}
