@@ -3,6 +3,7 @@ import {AiOutlineMinus,AiOutlinePlus} from 'react-icons/ai'
 import { useEffect, useState } from 'react';
 import { loadWeb3 } from '../../api';
 import { contractAbi, contractAddress } from '../../Utils/contract';
+import { toast } from 'react-toastify';
 const Mint = () => {
 
     const [days,setDays_here] = useState()
@@ -63,13 +64,13 @@ const Mint = () => {
     const connectToWallet = async ()=>{
         let acc = await loadWeb3()
         if (acc == 'No Wallet') {
-            alert('No Wallet')
+            toast.error('No Wallet')
           }
           else if (acc == 'Wrong Network') {
-            alert('Wrong Network')
+            toast.warning('Wrong Network')
           }
           else {
-            alert('Connected')
+            toast.success('Connected')
             let contract  = await new window.web3.eth.Contract(contractAbi,contractAddress)
             let mintPriceWhe = await contract.methods.minting_price().call();
             let mintPrice = window.web3.utils.fromWei(mintPriceWhe)
@@ -91,10 +92,10 @@ const Mint = () => {
     const callMint = async ()=>{
         let acc = await loadWeb3()
         if (acc == 'No Wallet') {
-            alert('No Wallet')
+            toast.error('No Wallet')
           }
           else if (acc == 'Wrong Network') {
-            alert('Wrong Network')
+            toast.warning('Wrong Network')
           }
           else {
             let contract  = await new window.web3.eth.Contract(contractAbi,contractAddress)
@@ -104,18 +105,18 @@ const Mint = () => {
                 {
                     let balanceWei = await window.web3.eth.getBalance(acc);
                     let balance = await window.web3.utils.fromWei(balanceWei)
-                    console.log(balance)
                     if(balance > totalprice)
                     {
+                        let totalWei = await window.web3.utils.toWei(totalprice+'')
                         let status = await contract.methods.mint(price).send({
-                            value:totalprice,
+                            value:totalWei,
                             from:acc
                         })
-                        console.log(status)
+                        toast.success('Minted')
                     }
                     else
                     {
-                        alert('No enough Balance')
+                        toast.error(('No enough Balance'))
                     }
                 }
                 
@@ -125,7 +126,7 @@ const Mint = () => {
                     value:0,
                     from:acc
                 })
-                console.log(status)
+                toast.success('Minted')
             }
           }
     }
@@ -140,9 +141,9 @@ const Mint = () => {
         settotalprice(mintprice*price)
     },[price])
     return ( 
-        <div className="Mint bg-dark text-white pt-5 ">
+        <div className="Mint text-white pt-5 " style={{background:'#072008'}}>
             <h1 className=" text-center fw-bold py-3">EVOLUTION APES PRESALE!</h1>
-            <p className="text-center mx-2 my-0">Congratulation You are the one of luckey few ones who made it to oue WhiteList</p>
+            <p className="text-center mx-2 my-0">Cong ratulation You are the one of luckey few ones who made it to oue WhiteList</p>
             <p className="text-center mx-2 my-0">you are able to mint upto 3 Nfts at the rate of (TBA) ETH</p>
             
             

@@ -26,3 +26,7 @@ height:100vh;
     color:#C9C9C9;
     margin: 0;
 }
+
+.cards{
+    transition: all 1s;
+}
