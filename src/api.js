@@ -3,9 +3,9 @@ let isItConnected = false;
 
 
 const networks = {
-  bsc: {
+  eth: {
     chainId: `0x${Number(4).toString(16)}`,
-    chainName: "Rinkeby Test Network",
+    chainName: "ETH",
     nativeCurrency: {
       name: "RinkebyETH",
       symbol: "ETH",
@@ -33,14 +33,22 @@ const changeNetwork = async ({ networkName }) => {
   try {
     if (!window.ethereum) throw new Error("No crypto wallet found");
     await window.ethereum.request({
-      method: "wallet_addEthereumChain",
+      method: "wallet_switchEthereumChain",
       params: [
         {
-          ...networks[networkName],
+          chainId:'0x4'
         },
       ],
     });
   } catch (err) {
+    await window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [
+        {
+          ...networks[networkName]
+        },
+      ],
+    });
     console.log("not found");
   }
 };
@@ -85,7 +93,7 @@ export const loadWeb3 = async () => {
         let accounts = await getAccounts();
         return accounts[0];
       } else {
-        let res = "Wrong Network";
+        let res = "Wrong Network"; 
         return res;
       }
     } else {

@@ -6,10 +6,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter,Routes,Route} from  'react-router-dom'
 import Mint from './Components/Mint/Mint';
 import {ToastContainer} from 'react-toastify'
+import Mint_Ref from './Components/Mint_Ref/Mint_Ref';
+import My_Collection from './Components/MyCollection/My_Collection';
+import Navbar from './Components/Navbar/Navbar';
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -21,9 +25,12 @@ function App() {
         draggable
         pauseOnHover
         />
+        {/* <Mint_Ref/> */}
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/mint' element={<Mint />} />
+        <Route path='/mint' element={<Mint_Ref />} />
+        <Route path='/My_Collection' element={<My_Collection />} />
+
       </Routes>
       </BrowserRouter>
     </div>
